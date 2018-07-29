@@ -33,14 +33,25 @@ const fourItems = [3, 6, 4, 5];
 const fiveItems = [3, 7, 5, 6, 4];
 const negative = [-3, -5, -4];
 
-const mergeSort = (array) => {
-  let divide = split(array);
-  const predicate = (a,b) => a <= b;
-  return divide.reduce((a, b) => merge(predicate, a, b), [b])
+const sort = (array) => {
+    if(array.length <= 1 )
+        return array;
+
+    const half = array.length / 2;
+    const middle = Math.floor(half);
+    const left = array.slice(0, middle); 
+    const right = array.slice(middle, array.length);
+
+    let sortedLeft = sort(left);
+    let sortedRight = sort(right);
+
+    const predicate = (a,b) => a <= b;
+
+    return merge(predicate, sortedLeft, sortedRight)
 }
 
 const merge = (predicate, left, right) => {
-
+{}
   if(left.length === 0 || right.length === 0)
     return left.concat(right)
 
@@ -49,32 +60,15 @@ const merge = (predicate, left, right) => {
   left[0] < right[0] ? results.push(left.shift()) : results.push(right.shift());
   
   return results.concat(merge(predicate, left, right));  
-};
-
-const split = (array) => {
-    if(array.length <= 1 )
-        return array;
-
-    const half = array.length / 2;
-    const middle = Math.floor(half);
-    const left = array.slice(0, middle); // slice is non destructive
-    const right = array.slice(middle, array.length);
-
-    let sortedLeft = split(left);
-    let sortedRight = split(right);
-
-    return sortedLeft.concat(sortedRight);
-}
-
- 
+}; 
 
 
-console.log(mergeSort(empty));
-console.log(mergeSort(oneItem));
-console.log(mergeSort(twoItems));
-console.log(mergeSort(fourItems));
-console.log(mergeSort(fiveItems));
-console.log(mergeSort(negative));
+console.log(sort(empty));
+console.log(sort(oneItem));
+console.log(sort(twoItems));
+console.log(sort(fourItems));
+console.log(sort(fiveItems));
+console.log(sort(negative));
 
 
 
