@@ -29,51 +29,46 @@
 const empty = [];
 const oneItem = [4];
 const twoItems = [4,3];
-const fourItems = [3, 11, 5, 6];
-const fiveItems = [3, 11, 5, 6, 2];
-const negative = [-3, -11, -5];
+const fourItems = [3, 6, 4, 5];
+const fiveItems = [3, 7, 5, 6, 4];
+const negative = [-3, -5, -4];
 
-// const split = array => {
-//     if(array.length < 2 )
-//         return array;
+const mergeSort = (array) => {
+  let divide = split(array);
+}
 
-//     //find out half the length of the array
-//     const half = array.length / 2;
-//     const middle = Math.floor(half);
-//     const left = array.slice(0, middle); // slice is non destructive
-//     const right = array.slice(middle, array.length);
+const split = (array) => {
+    if(array.length <= 1 )
+        return array;
 
-//     const result = [];
-//     return result.push(left) + result.push(right);
-// }
+    const half = array.length / 2;
+    const middle = Math.floor(half);
+    const left = array.slice(0, middle); // slice is non destructive
+    const right = array.slice(middle, array.length);
+
+    let sortedLeft = split(left);
+    let sortedRight = split(right);
+
+    return merge(sortedLeft, sortedRight);
+}
 
 const merge = (left, right) => {
-  
     const results = [];
-    
+
     while (left.length && right.length) {
-      
-      if (left[0] <= right[0]) {
-        results.push(left.shift());
-      }
-      else {
-        results.push(right.shift());
-      }
+      left[0] <= right[0] ? results.push(left.shift()) : results.push(right.shift());
     }
     
-    return results.concat(left, right);
+    return results.concat(left,right);
   };
 
-// console.log(merge(empty));
-// console.log(merge(oneItem));
-console.log(merge(twoItems, fourItems));
-//console.log(merge(fourItems));
-// console.log(merge(fiveItems));
 
-//console.log(split(empty));
-//console.log(split(oneItem));
-// console.log(split(twoItems));
-// console.log(split(fourItems));
-// console.log(split(fiveItems));
+console.log(split(empty));
+console.log(split(oneItem));
+console.log(split(twoItems));
+console.log(split(fourItems));
+console.log(split(fiveItems));
+console.log(split(negative));
+
 
 

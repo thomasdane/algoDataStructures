@@ -10,24 +10,24 @@
 
 // STEPS
 
-//first choose a pivot
-//create two arrays, to hold elements less or greater than pivot
+//the base case is when there are 1 or 0 elements in the array
+//choose a pivot
+//create two arrays, to hold elements smaller or bigger than pivot
 //for each element in the array, place it in the correct array
 //for each of those arrays, call the quicksort function and concat the result with the pivot
-//the base case is when there are 1 or 0 elements in the array
 
 function quickSort (array) {
 
     if (array.length <= 1)
         return array
+    
+    let pivot = array.splice(0, 1) //this removes the pivot from the original array
+    let left = []
+    let right = []
 
-    var pivot = array.splice(0, 1) //this removes the pivot from the original array
-    var less = []
-    var greater = []
+    array.map(x => x < pivot ? left.push(x) : right.push(x));
 
-    array.forEach( el => el < pivot ? less.push(el) : greater.push(el));
-
-    return quickSort(less).concat(pivot).concat(quickSort(greater));
+    return quickSort(left).concat(pivot).concat(quickSort(right));
 }
 
 const emptyArray = []
@@ -41,6 +41,12 @@ console.log(arrayOneElement + " => " + quickSort(arrayOneElement));
 console.log(positiveArray + " => " + quickSort(positiveArray));
 console.log(negativeArray + " => " + quickSort(negativeArray));
 console.log(word + " => " + quickSort(word));
+
+//Improvements to above algorithm
+
+// It is destructive. Alters array passed in. 
+// An alternative is to take the first or last element as the pivot,
+// And loop over everything except that. 
 
 
 
