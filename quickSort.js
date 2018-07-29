@@ -18,7 +18,7 @@
 
 function quickSort (array) {
 
-    if (!array.length)
+    if (array.length <= 1)
         return array
 
     var pivot = array.splice(0, 1) //this removes the pivot from the original array
