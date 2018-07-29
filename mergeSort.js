@@ -44,24 +44,22 @@ const sort = (array) => {
 
     let sortedLeft = sort(left);
     let sortedRight = sort(right);
-
     const predicate = (a,b) => a <= b;
 
     return merge(predicate, sortedLeft, sortedRight)
 }
 
 const merge = (predicate, left, right) => {
-{}
+
   if(left.length === 0 || right.length === 0)
     return left.concat(right)
 
   let results = [];  
 
-  left[0] < right[0] ? results.push(left.shift()) : results.push(right.shift());
+  predicate(left[0], right[0]) ? results.push(left.shift()) : results.push(right.shift());
   
   return results.concat(merge(predicate, left, right));  
 }; 
-
 
 console.log(sort(empty));
 console.log(sort(oneItem));
