@@ -19,24 +19,26 @@ class LinkedList {
         } else {
             this.tail.next = node;
         }
-        
-
 
         this.tail = node;
     }
 
     _find(value, compare = this._compare) {
         let current = this.head;
-        let i =0;
+        let i = 0;
 
         while(current){
-            if(compare(value, current)) {
+            
+            if(compare(value, current, i)) {
                 return current;
             }
+
+            current = current.next;
+            i++;
+
         }
 
-        current = current.next;
-        i++;
+        return null;
     }
 
     _compare(a,b) {
