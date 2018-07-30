@@ -11,16 +11,15 @@ class LinkedList {
     push(value) {
         const node = new Node(value);
 
-        this.length++;
+        if(this.head) 
+            this.tail.next = node;
 
-        if(!this.head) {
+        if(!this.head) 
             this.head = node;
             
-        } else {
-            this.tail.next = node;
-        }
-
         this.tail = node;
+
+        this.length++;
     }
 
     _find(value, compare = this._compare) {
