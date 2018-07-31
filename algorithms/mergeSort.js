@@ -1,4 +1,4 @@
-const split = (array) => {
+const mergeSort = (array) => {
     
     if(array.length <= 1)
         return array;
@@ -7,8 +7,8 @@ const split = (array) => {
     const left = array.slice(0, middle); 
     const right = array.slice(middle, array.length);
 
-    let mergeSortedLeft = split(left);
-    let mergeSortedRight = split(right);
+    let mergeSortedLeft = mergeSort(left);
+    let mergeSortedRight = mergeSort(right);
 
     const compare = (a,b) => a <= b;
     return zipWith(compare, mergeSortedLeft, mergeSortedRight)
@@ -30,4 +30,4 @@ const zipWith = (compare, left, right) => {
   return results.concat(zipWith(compare, left, right));  
 }; 
 
-export default split;
+export default mergeSort;
