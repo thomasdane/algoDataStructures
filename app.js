@@ -33,13 +33,13 @@ import LinkedList from './dataStructures/linkedList.js';
 
 let list = new LinkedList();
 
-list.push(1);
+list.push(10);
 list.push(2);
 list.push(3);
 list.push(4);
 console.log(list)
 
-let value = list._find(2);
+let value = list._find(4, list.head);
 console.log(value);
 
 

@@ -22,22 +22,14 @@ class LinkedList {
         this.length++;
     }
 
-    _find(value, compare = this._compare) {
-        let current = this.head;
-        let i = 0;
+    _find(value, node) {
+        if(node === null)
+            return null;
 
-        while(current){
+        if(node.value === value)
+            return value;
             
-            if(compare(value, current, i)) {
-                return current;
-            }
-
-            current = current.next;
-            i++;
-
-        }
-
-        return null;
+        return this._find(value, node.next)
     }
 
     _compare(a,b) {
