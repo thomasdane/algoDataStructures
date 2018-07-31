@@ -8,32 +8,27 @@ class LinkedList {
         this.length = 0;
     }
 
-    push(value) {
-        const node = new Node(value);
+    push(value) {  //O(1)
+        var node = new Node(value);
 
-        if(this.head) 
-            this.tail.next = node;
-
-        if(!this.head) 
+        if(!this.head) {
             this.head = node;
+        } else {
+            this.tail.next = node;
+        }
             
         this.tail = node;
-
-        this.length++;
     }
 
-    _find(value, node) {
-        if(node === null)
+    _find(value, node) { //O(n)
+
+        if(!node)
             return null;
 
         if(node.value === value)
             return value;
             
-        return this._find(value, node.next)
-    }
-
-    _compare(a,b) {
-        return a === b.value;
+        return this._find(value, node.next) // What is this? The object itself? 
     }
 }
 
