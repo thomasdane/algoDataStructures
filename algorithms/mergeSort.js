@@ -1,5 +1,3 @@
-export const mergeSort = split;
-
 const split = (array) => {
     
     if(array.length <= 1)
@@ -31,3 +29,5 @@ const zipWith = (compare, left, right) => {
   
   return results.concat(zipWith(compare, left, right));  
 }; 
+
+export default split;
