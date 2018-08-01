@@ -33,3 +33,29 @@ test('Find_WhenValueExists_ReturnsTrue', () => {
     expect(list._find(2, list.head)).toEqual(2);
 });
 
+test('Delete_WhenEmptyList_ThenFalse', () => {
+    //Arrange
+    let list = new LinkedList();
+
+    //Act
+    var actual = list.delete(1, list.head);
+    
+    //Assert
+    expect(actual).toEqual(false);
+    expect(list.head).toBeNull();
+    expect(list.tail).toBeNull();
+});
+
+test('Delete_WhenEmptyList_ThenFalse', () => {
+    //Arrange
+    let list = new LinkedList();
+
+    //Act
+    var actual = list.delete(1, list.head);
+    
+    //Assert
+    expect(actual).toEqual(false);
+    expect(list.head).toBeNull();
+    expect(list.tail).toBeNull();
+});
+
