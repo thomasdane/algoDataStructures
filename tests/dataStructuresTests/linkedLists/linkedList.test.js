@@ -1,4 +1,4 @@
-import LinkedList from '../../dataStructures/linkedList.js';
+import LinkedList from '../../../dataStructures/linkedList.js';
 
 test('Push_WhenEmptyList_ThenUpdatesHead', () => {
     let emptyList = new LinkedList();
