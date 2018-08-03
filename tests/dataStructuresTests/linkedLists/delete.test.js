@@ -1,53 +1,5 @@
 import LinkedList from '../../../dataStructures/linkedList.js';
 
-test('Push_WhenEmptyList_ThenUpdatesHead', () => {
-    let emptyList = new LinkedList();
-    emptyList.push(1);
-    expect(emptyList.head.value).toEqual(1);
-});
-
-test('Push_WhenEmptyList_ThenUpdatesHead', () => {
-    let emptyList = new LinkedList();
-    emptyList.push(1);
-    expect(emptyList.tail.value).toEqual(1);
-});
-
-test('Push_WhenNotEmptyList_ThenUpdatesTail', () => {
-    let list = new LinkedList();
-    
-    list.push(1);
-    list.push(2);
-    
-    expect(list.tail.value).toEqual(2);
-});
-
-/////////////// FIND /////////////////////////////////
-
-test('Contains_WhenValueExists_ReturnsTrue', () => {
-    //Arrange
-    let list = new LinkedList();
-    
-    //Act
-    list.push(1);
-
-    //Assert
-    expect(list.contains(1, list.head)).toBe(true);
-});
-
-test('Contains_WhenValueDoesNotExist_ReturnsFalse', () => {
-    //Arrange
-    let list = new LinkedList();
-    
-    //Act
-    list.push(1);
-
-    //Assert
-    expect(list.contains(2, list.head)).toBe(false);;
-});
-
-
-////////////// DELETE ////////////////////
-
 test('Delete_WhenEmptyList_ThenFalse', () => {
     //Arrange
     let list = new LinkedList();
