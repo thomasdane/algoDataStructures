@@ -20,22 +20,46 @@ class LinkedList {
         this.tail = node;
     }
 
-    _find(value, node) { //O(n)
+    contains(value, node) { //O(n)
 
         if(!node)
-            return null;
+            return false;
 
         if(node.value === value)
-            return value;
+            return true;
             
-        return this._find(value, node.next) // What is this? The object itself? 
+        return this.contains(value, node.next) // What is this? The object itself? 
     }
 
+    delete2(index){
+        if(index === 0) {
+            const head = this.head;
+            if(head){
+                this.head = head.next
+            } else {
+                this.head = null;  
+            }
+        }
+    }
+
+    //testIndex(search, __, i)
+
     delete(value, node){
-        //if node is null
-        //return false
 
         if(!node) return false;
+
+        if(node.value != value) {
+            return false;
+        }
+
+        if(this.head = node) {
+            this.head = null;
+            this.tail = null;
+            return true;
+        }
+
+        //const node = this._find(index -1, node, this.testIndex);
+
 
         // //if it is the tail
         // //t
@@ -55,9 +79,7 @@ class LinkedList {
         // //run the function again
         // //with node.next
 
-        if(node.value != value){
-            this.delete(value, node.next);
-        }
+        
     }
 }
 
