@@ -87,3 +87,66 @@ test('Pop_WhenArrayIsEmpty_ReturnsCorrectData', () => {
     expect(actual).toBeNull;
     expect(array.data).toBeNull;
 });
+
+test('Get_WhenIndexExists_ReturnsCorrectData', () => {
+    //Arrange
+    var array = new ArrayList();
+    array.push(1);
+
+    //Act
+    const actual = array.get(0);
+
+    //Assert
+    expect(actual).toBe(1);
+    expect(array.data[0]).toBe(1);
+});
+
+test('Get_WhenIndexExists_ReturnsCorrectData', () => {
+    //Arrange
+    var array = new ArrayList();
+    array.push(1);
+
+    //Act
+    const actual = array.get(10);
+
+    //Assert
+    expect(actual).toBeNull;
+    expect(array.data[0]).toBe(1);
+});
+
+test('Delete_WhenIndexExists_ReturnsCorrectData', () => {
+    //Arrange
+    var array = new ArrayList();
+    array.push(1);
+
+    //Act
+    array.delete(0);
+
+    //Assert
+    expect(array.data).toBeNull;
+});
+
+test('Delete_WhenIndexExists_ReturnsCorrectData', () => {
+    //Arrange
+    var array = new ArrayList();
+    array.push(1);
+
+    //Act
+    array.delete(10);
+
+    //Assert
+    expect(array.data[0]).toBe(1);
+});
+
+// test('Delete_WhenIndexExists_ReturnsCorrectData', () => {
+//     //Arrange
+//     var array = new ArrayList();
+//     array.push(1);
+//     array.push(2);
+
+//     //Act
+//     array.delete(0);
+
+//     //Assert
+//     expect(array.data[0]).toBe(2);
+// });

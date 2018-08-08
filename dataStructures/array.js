@@ -17,4 +17,13 @@ export class ArrayList{
         this.length--;
         return result;
     }
+
+    get(index) {
+       return this.data[index]; 
+    }
+
+    delete(index){
+        delete this.data[index];
+        this.length--;
+    }
 }
