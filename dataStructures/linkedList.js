@@ -20,15 +20,19 @@ class LinkedList {
         this.tail = node;
     }
 
-    contains(value, node) { //O(n)
+    contains(value) { //O(n)
+        
+        const recurse = (node, value) => {
+            if(!node)
+                return false;
 
-        if(!node)
-            return false;
+            if(node.value === value)
+                return true;
+                
+            return recurse(node.next, value)
+        }
 
-        if(node.value === value)
-            return true;
-            
-        return this.contains(value, node.next)
+        return recurse(this.head, value);
     }
 
     delete(value, node){

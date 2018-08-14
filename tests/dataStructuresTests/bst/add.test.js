@@ -1,54 +1,109 @@
-import Bst from '../../../dataStructures/bst.js';
+import {Bst} from '../../../dataStructures/bst.js'
 
-test('Add_WhenValuAndEmptyTree_ReturnsRootNode', () => {
+test('Add_WhenEmptyBstAndValue_AddsNewRoot', () => {
+    //Arrange
+    var bst = new Bst();
 
-    let bst = new Bst();
+    //Act
+    bst.Add(1);
 
-    bst.add(1);
-
+    //Assert
     expect(bst.root.value).toBe(1);
 });
 
-test('Add_WhenNoValueAndEmptyTree_ReturnsRootNode', () => {
 
-    let bst = new Bst();
+test('Add_WhenEmptyBstAndNull_ReturnsBst', () => {
+    //Arrange
+    var bst = new Bst();
 
-    bst.add(null);
+    //Act
+    bst.Add(null);
 
+    //Assert
     expect(bst.root).toBeNull;
 });
 
+test('Add_WhenValueLessThanRoot_AddsToLeft', () => {
+    //Arrange
+    var bst = new Bst();
+    bst.Add(2);
 
-test('Add_WhenValueSmallerThanRoot_AddsToLeft', () => {
+    //Act
+    bst.Add(1);
 
-    let bst = new Bst();
-
-    bst.add(3);
-    bst.add(4);
-    bst.add(2);
-
-    expect(bst.left.value).toBe(2);
+    //Assert
+    expect(bst.root.left.value).toBe(1);
 });
 
 
-test('Add_WhenValueSameAsRoot_AddsToLeft', () => {
+test('Add_WhenValueLessThanRootLeft_AddsToLeft', () => {
+    //Arrange
+    var bst = new Bst();
+    bst.Add(3);
+    bst.Add(2);
 
-    let bst = new Bst();
+    //Act
+    bst.Add(1);
 
-    bst.add(3);
-    bst.add(3);
 
-    expect(bst.left.value).toBe(3);
+    //Assert
+    expect(bst.root.left.left.value).toBe(1);
 });
 
-test('Add_WhenValueSameAsRoot_AddsToLeft', () => {
 
-    let bst = new Bst();
+test('Add_WhenValueMoreThanRoot_AddsToRight', () => {
+    //Arrange
+    var bst = new Bst();
+    bst.Add(2);
 
-    bst.add(3);
-    bst.add(2);
-    bst.add(4);
+    //Act
+    bst.Add(3);
 
-    expect(bst.right.value).toBe(4);
+    //Assert
+    expect(bst.root.right.value).toBe(3);
 });
 
+test('Add_WhenValueMoreThanRootRight_AddsToRight', () => {
+    //Arrange
+    var bst = new Bst();
+    bst.Add(2);
+    bst.Add(3);
+
+    //Act
+    bst.Add(4);
+
+
+    //Assert
+    expect(bst.root.right.right.value).toBe(4);
+});
+
+test('Add_WhenLargeTree_AddsToCorrectLocation', () => {
+    //Arrange
+    const nums = [3,7,4,6,5,1,10,2,9,8];
+    const bst = new Bst();
+
+    //Act
+    nums.map(num => bst.Add(num));
+
+    //Assert
+    expect(bst.root.value).toEqual(3);
+    expect(bst.root.left.value).toEqual(1);
+    expect(bst.root.left.left).toBeNull();
+    expect(bst.root.left.right.value).toEqual(2);
+    expect(bst.root.left.right.left).toBeNull();
+    expect(bst.root.left.right.right).toBeNull();
+    expect(bst.root.right.value).toEqual(7);
+    expect(bst.root.right.left.value).toEqual(4);
+    expect(bst.root.right.left.left).toBeNull();
+    expect(bst.root.right.left.right.value).toEqual(6);
+    expect(bst.root.right.left.right.left.value).toEqual(5);
+    expect(bst.root.right.left.right.left.right).toBeNull();
+    expect(bst.root.right.left.right.left.left).toBeNull();
+    expect(bst.root.right.right.value).toEqual(10);
+    expect(bst.root.right.right.right).toBeNull();
+    expect(bst.root.right.right.left.value).toEqual(9);
+    expect(bst.root.right.right.left.right).toBeNull();
+    expect(bst.root.right.right.left.left.value).toEqual(8);
+    expect(bst.root.right.right.left.left.right).toBeNull();
+    expect(bst.root.right.right.left.left.left).toBeNull();
+});
