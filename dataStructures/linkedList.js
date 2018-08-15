@@ -35,19 +35,49 @@ class LinkedList {
         return recurse(this.head, value);
     }
 
-    delete(value, node){
+    deleteValue(value){ //assumes unique ??
 
-        if(!node) return false;
+        if(!this.head) return false;
 
-        if(node.value != value) {
-            return false;
-        }
+        if(this.head.value === value) {
 
-        if(this.head = node) {
-            this.head = null;
-            this.tail = null;
+            if(this.head === this.tail){ //if the list is only 1 item long
+                this.head = null;
+                this.tail = null;
+            } else {
+                this.head = this.head.next;
+            }
+            
             return true;
         }
+
+
+        const recurse = (node, value) => {
+            if(!node) return false;
+
+            console.log("plain node")
+            console.log(node);
+
+            const nextNode = node.next;
+
+            console.log("next node")
+            console.log(nextNode);
+
+
+            if(!nextNode) return false; //reached tail with no match
+
+            if(nextNode.value === value){
+                node.next = nextNode.next;
+                if(nextNode === this.tail) {
+                    this.tail = node;
+                }
+                return true;
+            }
+
+            return recurse(nextNode, value)
+        }
+
+        return recurse(this.head, value);
     }
 }
 
