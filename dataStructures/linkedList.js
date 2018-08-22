@@ -55,13 +55,13 @@ class LinkedList {
         const recurse = (node, value) => {
             if(!node) return false;
 
-            console.log("plain node")
-            console.log(node);
+            //console.log("plain node")
+            //console.log(node);
 
             const nextNode = node.next;
 
-            console.log("next node")
-            console.log(nextNode);
+            //console.log("next node")
+            //console.log(nextNode);
 
 
             if(!nextNode) return false; //reached tail with no match
