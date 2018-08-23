@@ -4,10 +4,9 @@ const hashCode = (input) => {
 
     if(inputLength === 0) return hash;
 
-    debugger
     for(var i = 0; i < inputLength; i++){
         const charCode = input.charCodeAt(i);
-        hash = ((hash << 5) - hash) + charCode;
+        hash = (hash * 31) + charCode;
         hash = hash & hash;
     }
 

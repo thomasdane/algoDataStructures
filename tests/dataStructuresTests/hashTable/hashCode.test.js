@@ -14,16 +14,16 @@ test("WhenSameInput_ThenSameOutput", () => {
     expect(firstOutput).toEqual(secondOutput);
 });
 
-// test("WhenDifferentInput_ThenDifferentOutput", () => {
+test("WhenDifferentInput_ThenDifferentOutput", () => {
 
-//     //Arrange
-//     const firstInput = "foo";
-//     const secondInput = "bar";
+    //Arrange
+    const firstInput = "foo";
+    const secondInput = "bar";
 
-//     //Act
-//     const firstOutput = hashCode(firstInput);
-//     const secondOutput = hashCode(secondInput);
+    //Act
+    const firstOutput = hashCode(firstInput);
+    const secondOutput = hashCode(secondInput);
 
-//     //Assert
-//     expect(firstOutput != secondOutput).toBe(true);
-// });
+    //Assert
+    expect(firstOutput != secondOutput).toBe(true);
+});
