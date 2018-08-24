@@ -20,6 +20,8 @@ class LinkedList {
         this.tail = node;
     }
 
+    //unshift? push to start
+
     contains(value) { //O(n)
         
         const recurse = (node, value) => {

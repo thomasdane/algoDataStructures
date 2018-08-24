@@ -1,4 +1,4 @@
-const hashCode = (input) => {
+const hashCode = (input, maxValue) => {
     let hash = 0;
     const inputLength = input.length;
 
@@ -6,11 +6,11 @@ const hashCode = (input) => {
 
     for(var i = 0; i < inputLength; i++){
         const charCode = input.charCodeAt(i);
-        hash = (hash * 31) + charCode;
+        hash = ((hash<<5)-hash)+charCode;
         hash = hash & hash;
     }
 
-    return hash;
+    return Math.abs(hash % maxValue);
 }
 
 export default hashCode;
