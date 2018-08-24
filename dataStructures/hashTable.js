@@ -1,4 +1,5 @@
-class HashTableSet {
+class HashTable {
+
     constructor(maxSize) {
         this.maxSize = maxSize;
         this.table = new Array(maxSize);
@@ -24,11 +25,11 @@ const generateHashCode = (input, maxValue) => {
 
     for(var i = 0; i < inputLength; i++){
         const charCode = input.charCodeAt(i);
-        hash = ((hash<<5)-hash)+charCode;
+        hash = (hash * 31) + charCode;
         hash = hash & hash;
     }
 
     return Math.abs(hash % maxValue);
 }
 
-export {generateHashCode, HashTableSet};
+export {generateHashCode, HashTable};

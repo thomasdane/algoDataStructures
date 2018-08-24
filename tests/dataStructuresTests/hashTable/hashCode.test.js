@@ -1,4 +1,4 @@
-import {generateHashCode, HashTableSet} from '../../../dataStructures/hashTable.js';
+import {generateHashCode, HashTable} from '../../../dataStructures/hashTable.js';
 
 test("WhenSameInput_ThenSameOutput", () => {
 
@@ -43,7 +43,7 @@ test("WhenMaxValue_HashLessThanMaxValue", () => {
 //Brian Holt tests
 
 it('add and check', () => {
-    const table = new HashTableSet(255);
+    const table = new HashTable(255);
     table.add('hi');
     table.add('this is fun');
     table.add('another thing');
