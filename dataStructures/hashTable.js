@@ -1,4 +1,22 @@
-const hashCode = (input, maxValue) => {
+class HashTableSet {
+    constructor(maxSize) {
+        this.maxSize = maxSize;
+        this.table = new Array(maxSize);
+    }
+
+    add(input) {
+        const hashCode = generateHashCode(input, this.maxSize);        
+        this.table[hashCode] = input;
+    }
+
+    check(input) {
+        const hashCode = generateHashCode(input, this.maxSize); 
+        if(this.table[hashCode]) return true;
+        return false;       
+    }
+}
+
+const generateHashCode = (input, maxValue) => {
     let hash = 0;
     const inputLength = input.length;
 
@@ -13,4 +31,4 @@ const hashCode = (input, maxValue) => {
     return Math.abs(hash % maxValue);
 }
 
-export default hashCode;
+export {generateHashCode, HashTableSet};

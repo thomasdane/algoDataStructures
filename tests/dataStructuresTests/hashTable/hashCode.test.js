@@ -1,4 +1,4 @@
-import hashCode from '../../../dataStructures/hashTable.js';
+import {generateHashCode, HashTableSet} from '../../../dataStructures/hashTable.js';
 
 test("WhenSameInput_ThenSameOutput", () => {
 
@@ -7,8 +7,8 @@ test("WhenSameInput_ThenSameOutput", () => {
     const secondInput = "foobar";
 
     //Act
-    const firstOutput = hashCode(firstInput,10);
-    const secondOutput = hashCode(secondInput,10);
+    const firstOutput = generateHashCode(firstInput,10);
+    const secondOutput = generateHashCode(secondInput,10);
 
     //Assert
     expect(firstOutput).toEqual(secondOutput);
@@ -21,8 +21,8 @@ test("WhenDifferentInput_ThenDifferentOutput", () => {
     const secondInput = "bar";
 
     //Act
-    const firstOutput = hashCode(firstInput,256);
-    const secondOutput = hashCode(secondInput,256);
+    const firstOutput = generateHashCode(firstInput,256);
+    const secondOutput = generateHashCode(secondInput,256);
 
     //Assert
     expect(firstOutput != secondOutput).toBe(true);
@@ -31,11 +31,28 @@ test("WhenDifferentInput_ThenDifferentOutput", () => {
 test("WhenMaxValue_HashLessThanMaxValue", () => {
 
     //Arrange
-    const firstInput = "foo";
+    const firstInput = "a much longer strings than the other ones";
 
     //Act
-    const firstOutput = hashCode(firstInput,5);
+    const firstOutput = generateHashCode(firstInput,2);
 
     //Assert
-    expect(firstOutput).toBeLessThan(5);
+    expect(firstOutput).toBeLessThan(2);
+});
+
+//Brian Holt tests
+
+it('add and check', () => {
+    const table = new HashTableSet(255);
+    table.add('hi');
+    table.add('this is fun');
+    table.add('another thing');
+
+    expect(table.check('hi')).toEqual(true);
+    expect(table.check('this is fun')).toEqual(true);
+    expect(table.check('another thing')).toEqual(true);
+
+    expect(table.check('ih')).toEqual(false);
+    expect(table.check('not in the list')).toEqual(false);
+    expect(table.check('also not in the list')).toEqual(false);
 });
