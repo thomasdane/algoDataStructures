@@ -26,14 +26,16 @@ const firstRepeatedCharRecurse = (string) => {
     let charCount = {};
 
     const recurse = (index) => {
-        if(index = chars.length) return null;
+        
+        if(index === chars.length) return null;
 
         const target = chars[index];
 
         if(charCount[target]) return target;
-        
-        charCount[target] = 1;
-        recurse(index + 1);
+
+        charCount[target] = "exists";
+
+        return recurse(index+1);
     }
 
     return recurse(0);

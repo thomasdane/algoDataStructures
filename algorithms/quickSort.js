@@ -3,8 +3,7 @@ function quickSort (array) {
     if (array.length <= 1)
         return array
     
-    let pivot = array.splice(0, 1) //this removes the pivot from the original array
-    //can we do it without mutation
+    let pivot = array.splice(0, 1);
     let left = []
     let right = []
 
