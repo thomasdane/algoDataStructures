@@ -43,7 +43,7 @@ test("WhenMaxValue_HashLessThanMaxValue", () => {
 //Brian Holt tests
 
 it('add and check', () => {
-    const table = new HashTable(255);
+    const table = new HashTable(100); //this hash table doesn't handle collisions
     table.add('hi');
     table.add('this is fun');
     table.add('another thing');

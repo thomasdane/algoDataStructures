@@ -1,4 +1,4 @@
-const mergeSort = (array) => {
+const mergeSort = array => {
     
     if(array.length <= 1)
         return array;
