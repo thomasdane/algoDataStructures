@@ -105,8 +105,6 @@ test("WhenTwoMatch_ThenFirstChar", () => {
 
     const result = firstRepeatedCharRecurse(input);
 
-    console.log(result);
-
     expect(result[0]).toEqual('b');
 });
 
