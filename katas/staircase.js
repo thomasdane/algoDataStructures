@@ -6,21 +6,24 @@
 //when 5, then 8
 //when 6, then 13
 
+let result = [1,2]
 
 const numWays = input => {
 
     if(input < 3) return input;
 
-    let values = [1,2];
-    let result = values.concat();
-
     const sum = values => {
-        let sum = values[0] + values[1];
+        let last = values[values.length - 1];
+        let secondLast = values[values.length - 2];
+        let sum = last + secondLast;
         result.push(sum);
-        values.shift();
     }
 
-    for(let i = 3; i <= input; i++){
+    if(input < result.length){
+        return result[input-1];
+    }
+
+    for(let i = result.length + 1; i <= input; i++){
         sum(result);
     }
 
@@ -28,14 +31,16 @@ const numWays = input => {
 }
 
 
-console.log(numWays(0));
-console.log(numWays(1));
-console.log(numWays(2));
+
+// console.log(numWays(0));
+// console.log(numWays(1));
+// console.log(numWays(2));
 console.log(numWays(3));
 console.log(numWays(4));
 console.log(numWays(5));
 console.log(numWays(6));
 console.log(numWays(7));
+console.log(numWays(4));
 
 
 //one a ttime
