@@ -20,6 +20,18 @@ describe("Shift", () => {
         expect(list.tail).toBeNull();
         expect(result.value).toBe(1);
     });
+
+    test('WhenTwoNodes_ReturnsCorrectNodeAndRestOfList', () => {
+        let list = new LinkedList();
+        list.push(1);
+        list.push(2);
+
+        const result = list.shift();
+        
+        expect(result.value).toBe(1);
+        expect(list.head.value).toBe(2);
+        expect(list.tail.value).toBe(2);
+    });
     
     test('WhenThreeNodes_ReturnsCorrectNodeAndRestOfList', () => {
         let list = new LinkedList();
