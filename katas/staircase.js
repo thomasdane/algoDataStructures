@@ -1,63 +1,90 @@
-//when 0, then 0
-//when 1, then 1
-//when 2, then 2
-//when 3, then 3
-//when 4, then 5
-//when 5, then 8
-//when 6, then 13
+////////////////////////////////////////////////
+////////////// LOOPS ///////////////////////////
 
-let result = [1,2]
+let fibs = [1,1]
 
 const numWays = input => {
 
-    if(input < 3) return input;
+    console.time("loop")
+    if(input < 2) return 1;
 
-    const sum = values => {
-        let last = values[values.length - 1];
-        let secondLast = values[values.length - 2];
+    if(input < fibs.length){
+        console.timeEnd("loop");
+        return fibs[input];
+    }
+
+    for(let i = fibs.length; i <= input; i++){
+        let last = fibs[fibs.length - 1];
+        let secondLast = fibs[fibs.length - 2];
         let sum = last + secondLast;
-        result.push(sum);
+        fibs.push(sum);
     }
 
-    if(input < result.length){
-        return result[input-1];
-    }
-
-    for(let i = result.length + 1; i <= input; i++){
-        sum(result);
-    }
-
-    return result[result.length-1];
+    console.timeEnd("loop");
+    return fibs[fibs.length-1];
 }
 
+console.log(numWays(8));
+console.log(numWays(9));
+console.log(numWays(8));
+
+//////////////////////////////////////////////////////////
+////////////////////// RECURSIVE /////////////////////////
+
+const numWaysRecurse = input => {
+    
+    if(input < 2) return 1;
+
+    return (numWaysRecurse(input - 1) + numWaysRecurse(input - 2));
+}
+
+console.log("/////////////////RECURSE ////////////////////");
+
+let a = 11;
+console.time(a)
+console.log(numWaysRecurse(a));
+console.timeEnd(a);
+
+let b = 21;
+console.time(b)
+console.log(numWaysRecurse(b));
+console.timeEnd(b);
+
+let c = 11;
+console.time(c)
+console.log(numWaysRecurse(c));
+console.timeEnd(c);
 
 
-// console.log(numWays(0));
-// console.log(numWays(1));
-// console.log(numWays(2));
-console.log(numWays(3));
-console.log(numWays(4));
-console.log(numWays(5));
-console.log(numWays(6));
-console.log(numWays(7));
-console.log(numWays(4));
+const numWaysRecurseMemo = input => {
+    
+    if(input in fibsObject) {
+        return fibsObject[input];
+    }
+    
+    if(input < 2) return 1;
+
+    fibsObject[input] = (numWaysRecurse(input - 1) + numWaysRecurse(input - 2));
+
+    return fibsObject[input];
+}
+
+let fibsObject = {};
 
 
-//one a ttime
-//two at a time
-//two, then two 1s
-//two 1s then 2
-//1, 2, 1
+console.log("//////////////////MEMO///////////////////");
 
-//1,1,1,1,1
+let x = 11;
+console.time(x)
+console.log(numWaysRecurseMemo(x));
+console.timeEnd(x);
 
-//2,1,1,1
-//1,2,1,1
-//1,1,2,1
-//1,1,1,2
+let y = 21;
+console.time(y)
+console.log(numWaysRecurseMemo(y));
+console.timeEnd(y);
 
-//2,2,1
-//2,1,2
-//1,2,2
-
-//given a number, workout the next number in fib sequence
+let z = 11;
+console.time(z)
+console.log(numWaysRecurseMemo(z));
+console.timeEnd(z);
