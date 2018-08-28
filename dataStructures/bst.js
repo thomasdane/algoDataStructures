@@ -7,12 +7,12 @@ export class Bst {
         
         const newNode = new BstNode(value);
 
-        const recurse = (node, value) => {
+        if(!this.root) {
+            this.root = newNode;
+            return;
+        }
 
-            if(!node) {
-                this.root = newNode;
-                return;
-            }
+        const recurse = (node, value) => {
 
             if(node.value > value) {
 

@@ -5,7 +5,6 @@ class LinkedList {
     constructor() {
         this.head = null;
         this.tail = null;
-        this.length = 0;
     }
 
     push(value) {  //O(1)
@@ -13,11 +12,29 @@ class LinkedList {
 
         if(!this.head) {
             this.head = node;
+            this.tail = node;
+
         } else {
             this.tail.next = node;
+            this.tail = node;
         }
             
-        this.tail = node;
+    }
+
+    shift(){
+
+        if(!this.head) return null;
+
+        const result = this.head;
+
+        if(this.head === this.tail){
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head = this.head.next;
+        }
+
+        return result;
     }
 
     //unshift? push to start
