@@ -1,3 +1,5 @@
+import {preOrderTraverse, inOrderTraverse, postOrderTraverse} from '../../../algorithms/traversal/dfs.js'
+
 describe('tests', function() {
   
     const tree = {
@@ -44,15 +46,15 @@ describe('tests', function() {
       }
     };
     
-    it('preorderTraverse', () => {
-      expect(preorderTraverse(tree, [])).toEqual([8, 4, 3, 2, 5, 7, 6, 12, 10, 9, 11]);
+    it('preOrderTraverse', () => {
+      expect(preOrderTraverse(tree, [])).toEqual([8, 4, 3, 2, 5, 7, 6, 12, 10, 9, 11]);
     });
     
     it('inorderTraverse', () => {
-      expect(inorderTraverse(tree, [])).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+      expect(inOrderTraverse(tree, [])).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
     });
     
     it('postorderTraverse', () => {
-      expect(postorderTraverse(tree, [])).toEqual([2, 3, 6, 7, 5, 4, 9, 11, 10, 12, 8]);
+      expect(postOrderTraverse(tree, [])).toEqual([2, 3, 6, 7, 5, 4, 9, 11, 10, 12, 8]);
     });
   });
