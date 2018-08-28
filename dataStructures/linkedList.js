@@ -12,13 +12,12 @@ class LinkedList {
 
         if(!this.head) {
             this.head = node;
-            this.tail = node;
+            this.tail = node; //can't have a next, because only 1
 
         } else {
             this.tail.next = node;
             this.tail = node;
         }
-            
     }
 
     shift(){
