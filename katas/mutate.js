@@ -1,4 +1,3 @@
-
 class Queue { //implemented using a linked list
     constructor() {
         this.head = null;
@@ -68,10 +67,10 @@ class Iterator {
 const iterate = input => {
 
     const iterator = new Iterator(input);
-    let result = [];
+    const result = [];
 
     while(iterator.hasNext()){
-        let next = iterator.next();
+        const next = iterator.next();
         result.push(next);
 
         while(iterator.queue.head) {
@@ -79,7 +78,7 @@ const iterate = input => {
             result.push(firstNode.value);
         }
     }
-    
+
     return result.join();
 }
 
