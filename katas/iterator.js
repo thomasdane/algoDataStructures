@@ -1,48 +1,6 @@
-class Queue { //implemented using a linked list
-    constructor() {
-        this.head = null;
-        this.tail = null;
-    }
-
-    enqueue(value){
-        var node = new Node(value);
-
-        if(!this.head) {
-            this.head = node;
-            this.tail = node;
-
-        } else {
-            this.tail.next = node;
-            this.tail = node;
-        }
-    }
-
-    dequeue(){
-        if(!this.head) return null;
-
-        const result = this.head;
-
-        if(this.head === this.tail){
-            this.head = null;
-            this.tail = null;
-        } else {
-            this.head = this.head.next;
-        }
-
-        return result;
-    }
-}
-
-class Node {
-    constructor(value){
-        this.value = value;
-        this.next = null;
-    }
-}
-
 class Iterator {
     constructor(input){
-        this.queue = new Queue();
+        this.queue = [];
         this.input = input;
     }
     
@@ -51,13 +9,12 @@ class Iterator {
     }
     
     next(){
-
         let firstElement = this.input.shift();
 
         if(Array.isArray(firstElement)){
-            firstElement.map(x => this.queue.enqueue(x));
-            const firstNode = this.queue.dequeue();
-            return firstNode.value;
+            firstElement.map(x => this.queue.push(x));
+            const firstNode = this.queue.shift()
+            return firstNode;
         }
 
         return firstElement;
@@ -73,9 +30,9 @@ const iterate = input => {
         const next = iterator.next();
         result.push(next);
 
-        while(iterator.queue.head) {
-            let firstNode = iterator.queue.dequeue();
-            result.push(firstNode.value);
+        while(iterator.queue.length > 0) {
+            let firstNode = iterator.queue.shift();
+            result.push(firstNode);
         }
     }
 
