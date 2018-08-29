@@ -42,49 +42,48 @@ class Node {
 }
 
 class Iterator {
-    constructor(){
+    constructor(input){
         this.queue = new Queue();
+        this.input = input;
     }
     
-    hasNext(input) {
-        return input.length > 0;
+    hasNext() {
+        return this.input.length > 0;
     }
     
-    next(input){
+    next(){
 
-        let firstElement = input.shift();
+        let firstElement = this.input.shift();
 
         if(Array.isArray(firstElement)){
             firstElement.map(x => this.queue.enqueue(x));
-            const first = this.queue.dequeue();
-            return first.value;
-        };
+            const firstNode = this.queue.dequeue();
+            return firstNode.value;
+        }
 
         return firstElement;
     }
+}
 
-    iterate(input){
+const iterate = input => {
 
-        const recurse = (input, result) => {
-            if(!this.hasNext(input)) return result.join();
-            let next = this.next(temp);
-            result.push(next);
-            while(this.queue.head) {
-                let firstNode = this.queue.dequeue().value;
-                result.push(firstNode);
-            }
-            return recurse(temp, result);
+    const iterator = new Iterator(input);
+    let result = [];
+
+    while(iterator.hasNext()){
+        let next = iterator.next();
+        result.push(next);
+
+        while(iterator.queue.head) {
+            let firstNode = iterator.queue.dequeue();
+            result.push(firstNode.value);
         }
-
-        let result = [];
-        const temp = input;
-
-        return recurse(temp, result);
     }
+    
+    return result.join();
 }
 
 //Arrange
-const iterator = new Iterator();
 const emptyInput = [];
 const singleElementInput = [1];
 const twoElementsInput = [1,2];
@@ -93,12 +92,12 @@ const doublyNestedInput = [1,[2,[3,4],5],6]
 const sampleInput = [9,[1,3],4,5];
 
 //Act
-const empty = iterator.iterate(emptyInput);
-const singleElement = iterator.iterate(singleElementInput);
-const twoElements = iterator.iterate(twoElementsInput);
-const nested = iterator.iterate(nestedInput);
-const doublyNested = iterator.iterate(doublyNestedInput);
-const sample = iterator.iterate(sampleInput);
+const empty = iterate(emptyInput);
+const singleElement = iterate(singleElementInput);
+const twoElements = iterate(twoElementsInput);
+const nested = iterate(nestedInput);
+const doublyNested = iterate(doublyNestedInput);
+const sample = iterate(sampleInput);
 
 //Assert
 console.log(empty.length === 0);
@@ -107,4 +106,3 @@ console.log(twoElements === "1,2");
 console.log(nested === "1,2,3");
 console.log(sample === "9,1,3,4,5");
 console.log(doublyNested === "1,2,3,4,5,6");
-console.log(sample)
