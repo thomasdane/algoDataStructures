@@ -20,7 +20,8 @@ const t3 = "End";
 
 const AreEqual = (array1, array2) => {
     const matches = array1.filter(element => array2.includes(element));
-    if(matches.length == array1.length) return true;
+    return matches.length == array1.length
+        && matches.length == array2.length;
 }
 
 //Arrange
