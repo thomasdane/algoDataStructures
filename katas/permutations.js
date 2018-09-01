@@ -4,13 +4,13 @@ const findPermutations = string => {
 
     const recurse = (soFar, rest) =>  {
 
-        const n = rest.length;
+        const length = rest.length;
         
-        if (n === 0) {
+        if (length === 0) {
             result.add(soFar); 
-        }
+        }   
 
-        for (let i = 0; i < n; i++){
+        for (let i = 0; i < length; i++){
             const next = soFar + rest[i];
             const remaining = rest.slice(0, i) + rest.slice(i+1);
             recurse(next, remaining);
