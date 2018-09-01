@@ -19,9 +19,10 @@ const t2 = "Spare";
 const t3 = "End";
 
 const AreEqual = (array1, array2) => {
+    if(array1.length != array2.length) return false;
+
     const matches = array1.filter(element => array2.includes(element));
-    return matches.length == array1.length
-        && matches.length == array2.length;
+    console.log(matches.length == array1.length);
 }
 
 //Arrange
@@ -31,4 +32,4 @@ const OneExpected = [1,t1, t3];
 const OneActual = hanoi(1);
 
 //Assert
-console.log(AreEqual(OneActual, OneExpected));
+AreEqual(OneActual, OneExpected);
