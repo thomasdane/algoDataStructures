@@ -1,4 +1,4 @@
-const bfs = tree => {
+const flattenTree = tree => {
 
     const queue = new Queue();
     queue.enqueue(tree.root);
@@ -20,6 +20,29 @@ const bfs = tree => {
 
     return recurse(queue, []);
     
+}
+
+const treeContains = (tree, element) => {
+
+    const queue = new Queue();
+    queue.enqueue(tree.root);
+
+    const recurse = (queue, array) => {
+
+        if(!queue.head) return array;
+
+        const queueNode = queue.dequeue();
+        const treeNode = queueNode.value;
+
+        if(treeNode.value === element) return treeNode.value;
+
+        if (treeNode.left) queue.enqueue(treeNode.left);
+        if (treeNode.right) queue.enqueue(treeNode.right);
+
+        return recurse(queue, array);
+    }
+
+    return recurse(queue, []);
 }
 
 class Queue {
@@ -107,5 +130,5 @@ class TreeNode {
     }
 }
 
-export {bfs, Bst};
+export {flattenTree, treeContains, Bst};
 
