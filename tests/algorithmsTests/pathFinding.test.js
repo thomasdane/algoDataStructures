@@ -33,7 +33,7 @@ describe("transform grid", () => {
     //     const pointB = [3,3];
 
     //     //act
-    //     const actual = findShortestPathLength(fourByFour, pointA, pointB);
+    //     const actual = findShortestPathLength(threeByThree, pointA, pointB);
 
     //     //assert
     //     expect(actual).toEqual(expected);
@@ -41,47 +41,55 @@ describe("transform grid", () => {
 });
 
 describe("getNeighbours", function() {
-    const fourByFour = [
-      [2, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 2]
+    const threeByThree = [
+      [2, 0, 0],
+      [0, 1, 0],
+      [0, 0, 2]
     ];
+
+    const threeByThreeTransformed = transformGrid(threeByThree);
+
+    const topLeft = new Point(0,0,2);
+    const topMiddle = new Point(0,1,0);
+    const topRight = new Point(0,2,0);
+    const leftMiddle = new Point(1,0,0);
+    const rightMiddle = new Point(1,2,0);
+    const bottomMiddle = new Point(2,1,0);
+
 
     describe("when no edges or walls", () => {
         it("should return 4 neighbours", () => {
             //arrange
-            const point = [1,1];
-            const expected = [[1,0],[0,1],[1,2],[2,1]];
-    
+            var expected = [leftMiddle, topMiddle, rightMiddle, bottomMiddle];
+            
             //act
-            const actual = getNeighbours(fourByFour, point[0], point[1]);
-    
+            const actual = getNeighbours(threeByThreeTransformed, 1, 1);
+
             //assert
             expect(actual).toEqual(expected);
         });
     });
 
     describe("when edge", () => {
-        it("should return 2 neighbours for top left", () => {
+        it("should return exclude out of bounds", () => {
             //arrange
-            const point = [0,0];
-            const expected = [[0,1],[1,0]];
+            const expected = [topMiddle,leftMiddle];
 
             //act
-            const actual = getNeighbours(fourByFour, point[0], point[1]);
+            const actual = getNeighbours(threeByThreeTransformed, 0, 0);
 
             //assert
             expect(actual).toEqual(expected);
         });
+    });
 
-        it("should return 2 neighbours for bottom right", () => {
+    describe("when wall", ()=> {
+        it("should exclude the wall from neighbours", () => {
             //arrange
-            const point = [3,3];
-            const expected = [[3,2],[2,3]];
+            const expected = [topLeft, topRight];
 
             //act
-            const actual = getNeighbours(fourByFour, point[0], point[1]);
+            const actual = getNeighbours(threeByThreeTransformed, 0, 1);
 
             //assert
             expect(actual).toEqual(expected);
