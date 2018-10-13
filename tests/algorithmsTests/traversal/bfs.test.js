@@ -1,6 +1,5 @@
 import {flattenTree, treeContains, Bst} from '../../../algorithms/traversal/bfs.js'
 
-
 describe('breadthFirstTraverse', function() {
 
     it('When flatten Binary Tree, Should return each level in order', () => {
