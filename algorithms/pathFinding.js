@@ -1,6 +1,12 @@
-const NO_ONE = "0";
-const BY_A = "A";
-const BY_B = "B";
+class Point {
+    constructor (row, column, value){
+        this.x = column;
+        this.y = row;
+        this.closed = value === 1;
+        this.length = 0;
+        this.openedBy = NO_ONE;
+    }
+}
 
 const transformGrid = grid => {
     return grid.map((row, rowIndex) => {
@@ -10,15 +16,9 @@ const transformGrid = grid => {
     });
 }
 
-class Point {
-    constructor (rowIndex, columnIndex, value){
-        this.x = columnIndex;
-        this.y = rowIndex;
-        this.closed = value === 1;
-        this.length = 0;
-        this.openedBy = NO_ONE;
-    }
-}
+const NO_ONE = "0";
+const BY_A = "A";
+const BY_B = "B";
 
 const getNeighbours = (grid, column, row) => {
     const results = [];
@@ -50,64 +50,67 @@ const getNeighbours = (grid, column, row) => {
     return results;
 }
 
+const getAllNeighbours = (neighbourQueue, grid) => {
+    return neighbourQueue.reduce((acc, neighbor) => acc.concat(getNeighbours(grid, neighbor.x, neighbor.y)), [])
+}
 
 
 const findShortestPathLength = (maze, [xA, yA], [xB, yB]) => {
+    
     const visited = transformGrid(maze);
-    visited[yA][xA].openedBy = BY_A;
-    visited[yB][xB].openedBy = BY_B;
+
+    const pointA = visited[yA][xA];
+    const pointB = visited[yB][xB];
+
+    pointA.openedBy = BY_A;
+    pointB.openedBy = BY_B;
   
-    let aQueue = [visited[yA][xA]];
-    let bQueue = [visited[yB][xB]];
+    let aQueue = [pointA];
+    let bQueue = [pointB];
     let iteration = 0;
   
-    while (aQueue.length && bQueue.length) {
-      iteration++;
-      const aNeighbors = aQueue.reduce((acc, neighbor) => acc.concat(getNeighbours(visited, neighbor.x, neighbor.y)), [])
-      aQueue = [];
-      for (let i = 0; i < aNeighbors.length; i++) {
-        const neighbor = aNeighbors[i];
-        if (neighbor.openedBy === BY_B) {
-          return neighbor.length + iteration;
-        } else if (neighbor.openedBy === NO_ONE) {
-          neighbor.length = iteration;
-          neighbor.openedBy = BY_A;
-          aQueue.push(neighbor); 
+    const recurse = () => {
+
+        if(aQueue.length === 0 || bQueue.length === 0) return -1;
+
+        iteration++;
+        
+        const aNeighbors = getAllNeighbours(aQueue, visited);
+        aQueue = [];
+
+        for (let i = 0; i < aNeighbors.length; i++) {
+            const neighbor = aNeighbors[i];
+
+            if (neighbor.openedBy === BY_B) {
+                return neighbor.length + iteration;
+            } else if (neighbor.openedBy === NO_ONE) {
+                neighbor.length = iteration;
+                neighbor.openedBy = BY_A;
+                aQueue.push(neighbor);
+            }
         }
-      }
-  
-      const bNeighbors = bQueue.reduce((acc, neighbor) => acc.concat(getNeighbours(visited, neighbor.x, neighbor.y)), [])
-      bQueue = [];
-      for (let i = 0; i < bNeighbors.length; i++) {
-        const neighbor = bNeighbors[i];
-        if (neighbor.openedBy === BY_A) {
-          return neighbor.length + iteration;
-        } else if (neighbor.openedBy === NO_ONE) {
-          neighbor.length = iteration;
-          neighbor.openedBy = BY_B;
-          bQueue.push(neighbor); 
+
+        const bNeighbors = getAllNeighbours(bQueue, visited);
+        bQueue = [];
+
+        for (let i = 0; i < bNeighbors.length; i++) {
+            const neighbor = bNeighbors[i];
+
+            if (neighbor.openedBy === BY_A) {
+                    return neighbor.length + iteration;
+            } else if (neighbor.openedBy === NO_ONE) {
+                neighbor.length = iteration;
+                neighbor.openedBy = BY_B;
+                bQueue.push(neighbor); 
+            }
         }
-      }
+
+        return recurse();
     }
-    return -1;
-  };
+
+    return recurse();
+};
   
-
-// const fourByFour = [
-//     [2, 0, 0, 0],
-//     [0, 0, 0, 0],
-//     [0, 0, 0, 0],
-//     [0, 0, 0, 2]
-//   ];
-
-//   const pointA = [0,0];
-//   const pointB = [3,3];
-  
-// console.log(findShortestPathLength(fourByFour, pointA, pointB));  
-
-
-
-
 export { getNeighbours, 
          findShortestPathLength, 
          Point, 
