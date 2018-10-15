@@ -11,40 +11,39 @@ const transformGrid = grid => {
 }
 
 class Point {
-    constructor (row, column, value){
-        this.x = column;
-        this.y = row;
+    constructor (rowIndex, columnIndex, value){
+        this.x = columnIndex;
+        this.y = rowIndex;
         this.closed = value === 1;
-        this.distance = 0;
+        this.length = 0;
         this.openedBy = NO_ONE;
-        this.value = value;
     }
 }
 
-const getNeighbours = (grid, y, x) => {
+const getNeighbours = (grid, column, row) => {
     const results = [];
-    const left = x-1;
-    const above = y-1;
-    const right = x+1;
-    const below = y+1;
+    const left = column-1;
+    const above = row-1;
+    const right = column+1;
+    const below = row+1;
 
-    if(left >= 0 && !grid[y][left].closed){
-        var leftPoint = grid[y][left];
+    if(left >= 0 && !grid[row][left].closed){
+        var leftPoint = grid[row][left];
         results.push(leftPoint);
     }
 
-    if(above >= 0 && !grid[above][x].closed) {
-        var abovePoint = grid[above][x];
+    if(above >= 0 && !grid[above][column].closed) {
+        var abovePoint = grid[above][column];
         results.push(abovePoint);
     }
 
-    if(right <= grid.length - 1 && !grid[y][right].closed) {
-        var rightPoint = grid[y][right];
+    if(right <= grid.length - 1 && !grid[row][right].closed) {
+        var rightPoint = grid[row][right];
         results.push(rightPoint);
     }
     
-    if(below <= grid.length - 1 && !grid[below][x].closed) {
-        var belowPoint = grid[below][x];
+    if(below <= grid.length - 1 && !grid[below][column].closed) {
+        var belowPoint = grid[below][column];
         results.push(belowPoint);
     }
 
