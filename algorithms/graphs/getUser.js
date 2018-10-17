@@ -1,11 +1,6 @@
-let getUser;
-let getMe;
+const getUser = (id) => id <= 1000 && id > 0 ? list[id-1] : null;
 
-(function() {
-getUser = (id) => id <= 1000 && id > 0 ? list[id-1] : null;
-getMe = () => getUser(11);
-
-
+export {getUser}
 
 const list = [{"id":1,"name":"Leia Goede","company":"Bluejam","title":"Analog Circuit Design manager","connections":[536,320,29,697,333,28,686,968]},
 {"id":2,"name":"Ingelbert Pickston","company":"Layo","title":"Assistant Professor","connections":[616,126,583,483]},
@@ -1006,5 +1001,4 @@ const list = [{"id":1,"name":"Leia Goede","company":"Bluejam","title":"Analog Ci
 {"id":997,"name":"Mikel Pollock","company":"Quinu","title":"Senior Cost Accountant","connections":[422]},
 {"id":998,"name":"Rodney Fer","company":"Livepath","title":"Systems Administrator III","connections":[617,949,203,218,488,687,467]},
 {"id":999,"name":"Elle Souness","company":"Voonder","title":"Developer IV","connections":[394,689,875,581]},
-{"id":1000,"name":"Meredithe Dobkin","company":"Centidel","title":"Administrative Officer","connections":[532,590,907,267,829]}]
-})()
+{"id":1000,"name":"Meredithe Dobkin","company":"Centidel","title":"Administrative Officer","connections":[532,590,907,267,829]}];

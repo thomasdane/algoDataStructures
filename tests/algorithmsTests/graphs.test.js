@@ -2,27 +2,58 @@ import {findMostCommonTitle} from "../../algorithms/graphs/graphs.js"
 import {getUser} from "../../algorithms/graphs/getUser.js"
 
 describe('findMostCommonTitle', function() {
-// the getUser function and data comes from this CodePen: https://codepen.io/btholt/pen/NXJGwa?editors=0010
-// I recommend finishing these one at a time. if you put an x in front of the it so the function call is 
-// xit it will not run
+
     it('user 30 with 2 degrees of separation', () => {
-        expect(findMostCommonTitle(30, getUser, 2)).toBe("Librarian");
+        //arrange
+        const userId = 30;
+        const degrees = 2;
+        const expected = "Librarian";
+
+        //act
+        const actual = findMostCommonTitle(userId, getUser, degrees);
+
+        //assert
+        expect(actual).toBe(expected);
     });
 
     it('user 11 with 3 degrees of separation', () => {
-        expect(findMostCommonTitle(11, getUser, 3)).toBe("Graphic Designer");
+          //arrange
+          const userId = 11;
+          const degrees = 3;
+          const expected = "Graphic Designer";
+  
+          //act
+          const actual = findMostCommonTitle(userId, getUser, degrees);
+  
+          //assert
+          expect(actual).toBe(expected);
     });
 
     it('user 307 with 4 degrees of separation', () => {
-        // if you're failing here with "Clinical Specialist, you're probably not filtering users who
-        // appear more than once in people's connections
-        expect(findMostCommonTitle(306, getUser, 4)).toBe("Environmental Tech");
+          //arrange
+          const userId = 306;
+          const degrees = 4;
+          const expected = "Environmental Tech";
+  
+          //act
+          const actual = findMostCommonTitle(userId, getUser, degrees);
+  
+          //assert
+          expect(actual).toBe(expected);
     });
-    });
+});
 
-    // remove x from describe to run
-    xdescribe('extra credit', function() {
-    it('user 1 with 7 degrees of separation – this will traverse every user that\'s followed by someone else. five users are unfollowed', () => {
-        expect(findMostCommonTitle(1, getUser, 7)).toBe("Geological Engineer");
+describe('extra credit', function() {
+    it('user 1 with 7 degrees of separation', () => {
+        //arrange
+        const userId = 1;
+        const degrees = 7;
+        const expected = "Geological Engineer";
+
+        //act
+        const actual = findMostCommonTitle(userId, getUser, degrees);
+
+        //assert
+        expect(actual).toBe(expected);
     });
 })
