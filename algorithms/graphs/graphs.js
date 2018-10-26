@@ -1,5 +1,5 @@
-const findMostCommonTitle = (myId, getUser, degreesOfSeparation) => {
-  let queue = [myId];
+const findMostCommonTitle = (id, getUser, degreesOfSeparation) => {
+  let queue = [id];
   const seen = new Set();
   const jobs = {};
   
@@ -13,8 +13,9 @@ const findMostCommonTitle = (myId, getUser, degreesOfSeparation) => {
         return user;
       })
       .map((user) => user.connections)
-      .reduce((acc, users) => acc.concat(users), [])
-  }
+      .reduce((acc, users) => acc.concat(users), []);
+  };
+
   return Object.keys(jobs)
     .map((job) => [job, jobs[job]])
     .sort((a, b) => {
@@ -22,5 +23,6 @@ const findMostCommonTitle = (myId, getUser, degreesOfSeparation) => {
       if (a[1] < b[1]) return 1;
       return 0;
     })[0][0]
-}
+};
+
 export {findMostCommonTitle}
