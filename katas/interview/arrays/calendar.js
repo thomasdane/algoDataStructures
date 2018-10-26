@@ -1,11 +1,12 @@
 function mergeRanges(meetings) {
 
     const allMeetingTimes = [];
+    const meetingInProgress = 1;
 
     meetings.forEach(meeting => { // O(n)
         //for each meeting, mark the duration in the allMeetingTimes array
         for(let i = meeting.startTime; i < meeting.endTime; i++) {
-            allMeetingTimes[i] = 1;
+            allMeetingTimes[i] = meetingInProgress;
         }
     });
 
@@ -14,19 +15,19 @@ function mergeRanges(meetings) {
 
     for(let i = 0; i < allMeetingTimes.length; i++){ //O(n)
         
-        const previous = allMeetingTimes[i - 1] || 0;
-        const next = allMeetingTimes[i + 1] || 0;
+        const previousMeeting = allMeetingTimes[i - 1] || 0;
+        const nextMeeting = allMeetingTimes[i + 1] || 0;
 
-        const isMeeting = allMeetingTimes[i] === 1;
-        const isStart = previous === 0;
-        const isEnd = next === 0;
+        const isMeeting = allMeetingTimes[i] === meetingInProgress;
+        const isStart = previousMeeting === 0;
+        const isEnd = nextMeeting === 0;
 
         if(isMeeting && isStart) {
             singleMeeting.startTime = i;
         }
 
         if(isMeeting && isEnd){
-            singleMeeting.endTime = i+1;
+            singleMeeting.endTime = i + 1;
             result.push(singleMeeting);
             singleMeeting = {};
         }
