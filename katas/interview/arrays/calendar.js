@@ -20,46 +20,37 @@ Your function would return:
 ]
 */
 
-class Meeting {
-    constructor(start, end){
-        this.startTime = start;
-        this.endTime = end;
-    }
-}
-
 function mergeRanges(meetings) {
 
-    let timeSpan = 2 * 24 * 7; 
-    //2 meetings per hour * 24 hours in a day * 7 days in a week
-    //You could increase this value to handle unix times. You would just need enough memory to look that far forward in the future. 
-    const times = new Array(timeSpan).fill(0);
-    
+    const allMeetingTimes = [];
+
     meetings.forEach(meeting => { // O(n)
+        //for each meeting, mark the duration in the allMeetingTimes array
         for(let i = meeting.startTime; i < meeting.endTime; i++) {
-            times[i] = 1;
+            allMeetingTimes[i] = 1;
         }
     });
 
-    let meeting = {};
     let result = [];
+    let singleMeeting = {};
 
-    for(let i = 0; i < times.length; i++){ //O(n)
+    for(let i = 0; i < allMeetingTimes.length; i++){ //O(n)
         
-        let previous = times[i - 1] || 0;
-        let next = times[i + 1] || 0;
+        let previous = allMeetingTimes[i - 1] || 0;
+        let next = allMeetingTimes[i + 1] || 0;
 
-        let isMeeting = times[i] === 1;
-        let start = previous === 0;
-        let end = next === 0;
+        let isMeeting = allMeetingTimes[i] === 1;
+        let isStart = previous === 0;
+        let isEnd = next === 0;
 
-        if(isMeeting && start) {
-            meeting.startTime = i;
+        if(isMeeting && isStart) {
+            singleMeeting.startTime = i;
         }
 
-        if(isMeeting && end){
-            meeting.endTime = i+1;
-            result.push(meeting);
-            meeting = {};
+        if(isMeeting && isEnd){
+            singleMeeting.endTime = i+1;
+            result.push(singleMeeting);
+            singleMeeting = {};
         }
     }
 
