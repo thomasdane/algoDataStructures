@@ -26,13 +26,13 @@ const goodShuffle = input => {
 
     while (unshuffled > 0) {
         
-        //get a random number that is less than the unshuffled elements
+        //get a random number within the range of unshuffled elements. That is, ensure it is less than the index of shuffled elements. 
         const randomNumber = Math.floor(Math.random() * unshuffled);
 
         // Decrease counter by 1
         unshuffled--;
 
-        // And swap the last element with it
+        // Swap the random element and the last element
         let lastElement = input[unshuffled];
         input[unshuffled] = input[randomNumber];
         input[randomNumber] = lastElement;
