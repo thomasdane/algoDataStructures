@@ -12,9 +12,8 @@ const isBinarySearchTree = node => {
         
         dfs(node.left, nodeValues);
 
-        //push values onto start of array
         nodeValues.unshift(node.value);
-        //compare the most recent element with the element before it
+
         if(!isInOrder(nodeValues)) return false;
 
         dfs(node.right, nodeValues);
@@ -22,9 +21,6 @@ const isBinarySearchTree = node => {
         return isInOrder(nodeValues)
     }
 
-    const checkValues = (value, nodeValues) => {
-        
-    }
 
     const isInOrder = nodeValues => {
         if(treeHasOneNode(nodeValues)) return true;
