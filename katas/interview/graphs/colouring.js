@@ -8,6 +8,7 @@ Each graph node contains a value, a color, and a set of neighbours.
 Each set contains other nodes. 
 
 */
+
 const colorGraph = (graph, colors) => {
 
     //we can colour with at most 
@@ -20,6 +21,7 @@ const blue = "blue";
 const yellow = "yellow";
 const green = "green";
 const none = "none";
+const colors = [red, blue, yellow, green, none]
 
 class Node {
     constructor(value) {
@@ -31,17 +33,27 @@ class Node {
 
 const isValid = graph => {
 
-    //every node has a color
-    var a = everyNodeHasColor();
-
-    //the number of colours used does not exceed the max edges
-    var b = correctNumberColors();
-
-    //no node has the same colour as a neighbour
+    return allNodesHaveColor() &&
+    hasCorrectNumberColors() &&
+    isColorMatchNeighbor();
 }
 
 //tested
-const correctNumberColors = graph => {
+const isColorMatchNeighbor = graph => { //ask amy for advice on this one
+
+    let result = false;
+    
+    graph.forEach(node => {
+        const neigbors = getNeighbors(node);
+        const duplicate = neigbors.filter(neighbor => neighbor.color === node.color);
+        if(duplicate.length > 0) result = true;
+    });
+
+    return result;
+}
+
+//tested
+const hasCorrectNumberColors = graph => {
 
     let colors = new Set();
     let maxNeighborCount = 0;
@@ -56,7 +68,7 @@ const correctNumberColors = graph => {
 }
 
 //tested
-const everyNodeHasColor = graph => {
+const allNodesHaveColor = graph => {
     
     return graph.filter(node => node.color === none).length < 1;
 }
@@ -64,19 +76,6 @@ const everyNodeHasColor = graph => {
 //tested
 const getNeighbors = node => {
     return [...node.neighbors];
-}
-
-const getMaxNeighbors = node 
-
-
-const getColours = neighbours => {  //an array of neighbours
-    const maxDegree = 0;
-    const usedColours = [];
-
-    nodes.forEach(element => {
-        maxDegree = Math.max(maxDegree, node.neighbors.size);
-    })
-
 }
 
 
@@ -132,7 +131,7 @@ expectedB = new Node(4);
 expectedB.color = "red";
 graph = [expectedA, expectedB];
 //act
-actual = everyNodeHasColor(graph);
+actual = allNodesHaveColor(graph);
 //assert
 console.log(actual == true);
 
@@ -143,7 +142,7 @@ expectedA.color = "blue";
 expectedB = new Node(4);
 graph = [expectedA, expectedB];
 //act
-actual = everyNodeHasColor(graph);
+actual = allNodesHaveColor(graph);
 //assert
 console.log(actual == false);
 
@@ -167,7 +166,7 @@ node.neighbors.add(b);
 node.neighbors.add(c);
 graph = [node, a, b, c];
 //act
-actual = correctNumberColors(graph);
+actual = hasCorrectNumberColors(graph);
 //assert
 console.log(actual);
 
@@ -184,37 +183,45 @@ node.neighbors.add(a);
 node.neighbors.add(b);
 graph = [node, a, b, c];
 //act
-actual = correctNumberColors(graph);
+actual = hasCorrectNumberColors(graph);
 //assert
 console.log(actual === false);
 
+/*
 
-//     int maxDegree = 0;
-//     final Set<String> usedColors = new HashSet<>();
+COLOUR IS SAME AS NEIGHBOR
 
-//     for (final GraphNode node : graph) {
-//         final Set<GraphNode> neighbors = node.getNeighbors();
-//         maxDegree = Math.max(maxDegree, neighbors.size());
-//         usedColors.add(node.getColor());
-//     }
+*/
 
-//     final int allowedColorCount = maxDegree + 1;
+//When colors same, returns true
+a = new Node(5);
+b = new Node(4);
+node = new Node(2);
+a.color = blue;
+b.color = red;
+node.color = blue;
+node.neighbors.add(a);
+node.neighbors.add(b);
+graph = [node, a, b];
+//act
+actual = isColorMatchNeighbor(graph);
+//assert
+console.log(actual);
 
-//     if (usedColors.size() > allowedColorCount) {
-//         fail(String.format("Too many colors: %d allowed, but %d actually used",
-//                            allowedColorCount, usedColors.size()));
-//     }
-
-//     for (final GraphNode node : graph) {
-//         final Set<GraphNode> neighbors = node.getNeighbors();
-//         for (final GraphNode neighbor: neighbors) {
-//             if (neighbor.getColor().equals(node.getColor())) {
-//                 fail(String.format("Neighbor nodes %s and %s have the same color %s",
-//                                    node.getLabel(), neighbor.getLabel(), node.getColor()));
-//             }
-//         }
-//     }
-// }
+//When colors not clashing, returns false
+a = new Node(5);
+b = new Node(4);
+node = new Node(2);
+a.color = blue;
+b.color = red;
+node.color = green;
+node.neighbors.add(a);
+node.neighbors.add(b);
+graph = [node, a, b];
+//act
+actual = isColorMatchNeighbor(graph);
+//assert
+console.log(actual === false);
 
 
 //Tests
