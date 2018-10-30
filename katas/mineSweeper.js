@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////
 //////////////////// GENERATE MAP //////////////////////////
 ////////////////////////////////////////////////////////////
+
 const bombSymbol = '*';
 
 class Square {
@@ -61,12 +62,16 @@ const generateGridWithBombs = (grid, bombs) => {
 }
 
 const addBombProximity = grid => {
-
+    grid.forEach(row => {
+        row.forEach(square => {
+            if(square.value !== bombSymbol){
+                getNeighbours(grid, square.row, square.column);
+            }
+        });
+    })
 }
 
-const getNeighbours = (grid, square) => {
-    const row = square[0];
-    const column = square[1];
+const getNeighbours = (grid, row, column) => {
     const result = [];
 
     const left = column - 1; 
@@ -75,13 +80,13 @@ const getNeighbours = (grid, square) => {
     const below = row + 1;
 
     const hasLeft = left >= 0;
-    const hasRight = right <= gridSize;
+    const hasRight = right < gridSize;
     const hasTop = above >= 0;
-    const hasBelow = below <= gridSize;
+    const hasBelow = below < gridSize;
 
     if(hasLeft) result.push(grid[row][left].value);
-    if(hasTop) result.push(grid[above][column].value);
     if(hasRight) result.push(grid[row][right].value);
+    if(hasTop) result.push(grid[above][column].value);
     if(hasBelow) result.push(grid[below][column].value);
 
     if(hasLeft && hasTop) result.push(grid[above][left].value);
@@ -92,8 +97,6 @@ const getNeighbours = (grid, square) => {
     const bombCount = result.filter(value => value === '*').length;
     grid[row][column].value = bombCount.toString();
 }
-
-
 
 const printGrid = grid => {
     console.log('row')
@@ -125,13 +128,13 @@ const revealGrid = grid => {
     });
 }
 
-const gridSize = 4;
-const bombNumber = 4;
+const gridSize = 6;
+const bombNumber = 6;
 const grid = generateGrid(gridSize);
 const bombs = generateBombPositions(gridSize, bombNumber);
 const gridWithBombs = generateGridWithBombs(grid, bombs);
 
-getNeighbours(gridWithBombs, [1,1]);
+addBombProximity(gridWithBombs);
 revealGrid(gridWithBombs);
 
 //////////////////////////////////////////////////////////////////
