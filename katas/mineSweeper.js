@@ -60,6 +60,40 @@ const generateGridWithBombs = (grid, bombs) => {
     return temp;
 }
 
+const addBombProximity = grid => {
+
+}
+
+const getNeighbours = (grid, square) => {
+    const row = square[0];
+    const column = square[1];
+    const result = [];
+
+    const left = column - 1; 
+    const right = column + 1; 
+    const above = row - 1; 
+    const below = row + 1;
+
+    const hasLeft = left >= 0;
+    const hasRight = right <= gridSize;
+    const hasTop = above >= 0;
+    const hasBelow = below <= gridSize;
+
+    if(hasLeft) result.push(grid[row][left].value);
+    if(hasTop) result.push(grid[above][column].value);
+    if(hasRight) result.push(grid[row][right].value);
+    if(hasBelow) result.push(grid[below][column].value);
+
+    if(hasLeft && hasTop) result.push(grid[above][left].value);
+    if(hasLeft && hasBelow) result.push(grid[below][left].value);
+    if(hasRight && hasTop) result.push(grid[above][right].value);
+    if(hasRight && hasBelow) result.push(grid[below][right].value);
+
+    const bombCount = result.filter(value => value === '*').length;
+    grid[row][column].value = bombCount.toString();
+}
+
+
 
 const printGrid = grid => {
     console.log('row')
@@ -91,9 +125,14 @@ const revealGrid = grid => {
     });
 }
 
-const grid = generateGrid(4);
-const bombs = generateBombPositions(4, 4);
+const gridSize = 4;
+const bombNumber = 4;
+const grid = generateGrid(gridSize);
+const bombs = generateBombPositions(gridSize, bombNumber);
 const gridWithBombs = generateGridWithBombs(grid, bombs);
+
+getNeighbours(gridWithBombs, [1,1]);
+revealGrid(gridWithBombs);
 
 //////////////////////////////////////////////////////////////////
 ///////////////////////// GAME LOGIC /////////////////////////////
@@ -103,20 +142,20 @@ console.log("Select a square by entering the row and column numbers in order")
 printGrid(gridWithBombs);
 
 
-var input = process.openStdin();
-input.addListener("data", function(text) {
-    const coords = text.toString();
-    const square = getSquare(coords);
-    if(isBomb(square)) {
-        console.log('BOOM!')
-        console.log('You died');
-        revealGrid(grid);
-        process.exit()
-    } else {
-        square.hidden = false;
-        printGrid(grid);
-    }
-});
+// var input = process.openStdin();
+// input.addListener("data", function(text) {
+//     const coords = text.toString();
+//     const square = getSquare(coords);
+//     if(isBomb(square)) {
+//         console.log('BOOM!')
+//         console.log('You died');
+//         revealGrid(grid);
+//         process.exit()
+//     } else {
+//         square.hidden = false;
+//         printGrid(grid);
+//     }
+// });
 
 const getSquare = coords => {
     const row = coords.split('')[0];
