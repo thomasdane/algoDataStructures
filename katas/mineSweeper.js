@@ -68,7 +68,9 @@ const addBombProximity = grid => {
                 getNeighbours(grid, square.row, square.column);
             }
         });
-    })
+    });
+
+    return grid;
 }
 
 const getNeighbours = (grid, row, column) => {
@@ -128,37 +130,36 @@ const revealGrid = grid => {
     });
 }
 
-const gridSize = 6;
-const bombNumber = 6;
+const gridSize = 4;
+const bombNumber = 3;
 const grid = generateGrid(gridSize);
 const bombs = generateBombPositions(gridSize, bombNumber);
 const gridWithBombs = generateGridWithBombs(grid, bombs);
-
-addBombProximity(gridWithBombs);
-revealGrid(gridWithBombs);
-
+const finalGrid = addBombProximity(gridWithBombs);
+revealGrid(finalGrid)
+console.log('================================')
 //////////////////////////////////////////////////////////////////
 ///////////////////////// GAME LOGIC /////////////////////////////
 //////////////////////////////////////////////////////////////////
 
-console.log("Select a square by entering the row and column numbers in order")
-printGrid(gridWithBombs);
+printGrid(finalGrid);
+console.log("Select a square by entering the row and column numbers in order");
 
 
-// var input = process.openStdin();
-// input.addListener("data", function(text) {
-//     const coords = text.toString();
-//     const square = getSquare(coords);
-//     if(isBomb(square)) {
-//         console.log('BOOM!')
-//         console.log('You died');
-//         revealGrid(grid);
-//         process.exit()
-//     } else {
-//         square.hidden = false;
-//         printGrid(grid);
-//     }
-// });
+var input = process.openStdin();
+input.addListener("data", function(text) {
+    const coords = text.toString();
+    const square = getSquare(coords);
+    if(isBomb(square)) {
+        console.log('BOOM!')
+        console.log('You died');
+        revealGrid(finalGrid);
+        process.exit()
+    } else {
+        square.hidden = false;
+        printGrid(finalGrid);
+    }
+});
 
 const getSquare = coords => {
     const row = coords.split('')[0];
@@ -169,3 +170,9 @@ const getSquare = coords => {
 const isBomb = square => {
     return square.value === bombSymbol;
 } 
+
+
+//Todo
+
+//reveal all squares that also have 0 value
+//if only bombs left, show winning condition
