@@ -1,35 +1,31 @@
+class Game {
+    constructor(){
+        this.board = this.CreateBoard();
+        this.token = 'X';
+    }
 
+    CreateBoard(){
+        const board = [
+            ['-', '-', '-'],
+            ['-', '-', '-'],
+            ['-', '-', '-']
+        ];
 
-class Board {
-    constructor(boardGrid){
-        this.boardGrid = boardGrid;
+        return board;
     }
 
     PrintBoard() {
-        this.boardGrid.forEach(row => {
-            const rowString = this.PrintRow(row);
-            console.log(rowString);
-        });
-    }
-
-    PrintRow(row) {
-        let result = "";
-        row.forEach(square => {
-            result += square.toString();
-        });
-        return result;
+        this.board.forEach(row => console.log(row));
     }
 
     AddToken(value, row, column) {
-        this.boardGrid[row][column] = value;
+        this.board[row][column] = value;
     }
 
     IsFull(){
-        let countHyphen = 0;
-
-        this.boardGrid.forEach(row => {
+        this.board.forEach(row => {
             row.forEach(square => {
-                if(square === "-") countHyphen+=1;
+                if(square === "-") return false;
             })
         });
 
@@ -37,45 +33,26 @@ class Board {
     }
 
     makeMoveAI(){
-        this.boardGrid.forEach((row, rowIndex) => {
+        this.board.forEach((row, rowIndex) => {
             row.forEach((square, columnIndex) => {
                 if(square === "-") {
-                    boardGrid[rowIndex][columnIndex] = 'X';
+                    board[rowIndex][columnIndex] = 'X';
                     break;
                 }
 
             })
         });
     }
-
 }
 
-/*
-- | - | -
-*/
-
-const boardGrid = [
-    ['-', '|', '-', '|', '-'],
-    ['-', '|', '-', '|', '-'],
-    ['-', '|', '-', '|', '-']
-];
-
-
 const fullBoardGrid = [
-    ['X', '|', 'X', '|', 'X'],
-    ['X', '|', 'X', '|', 'X'],
-    ['X', '|', 'X', '|', 'X']
+    ['X', 'X', 'X'],
+    ['X', 'X', 'X'],
+    ['X', 'X', 'X']
 ];
 
-const board = new Board(boardGrid);
-console.log(board.PrintBoard());
-board.makeMoveAI();
-console.log(board.PrintBoard());
+const game = new Game();
+game.PrintBoard();
 
-
-//console.log(board.IsFull()); //false
-
-
-//const fullBoard = new Board(fullBoardGrid);
-//console.log(fullBoard.IsFull()); //true
+const fullGame = new Game();
 
