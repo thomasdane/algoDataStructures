@@ -1,24 +1,37 @@
 //reverse a singly linked list
 
+function printList(list){
+
+    function recurse(node){
+        if(!node) return;
+
+        process.stdout.write(node.value + " --> ");
+
+        recurse(node.next);
+    }
+
+    recurse(list.head);
+    console.log();
+
+} 
+
+function toList(array) {
+    const list = new LinkedList();
+
+    for(let i = 0; i < array.length; i++){
+        const element = array[i];
+        list.add(element);
+    }
+
+    return list;
+}
+
 class Node {
     constructor(value){
         this.value = value;
         this.next = null;
     }
 }
-
-function printList(list){
-
-    function recurse(node){
-        if(!node) return;
-
-        console.log(node.value);
-
-        recurse(node.next);
-    }
-
-    recurse(list.head);
-} 
 
 class LinkedList {
     constructor(){
@@ -65,10 +78,9 @@ class LinkedList {
     }
 }
 
-const list = new LinkedList();
-list.add(3);
-list.add(2);
-list.add(1);
+const array = [1,2,3,4,5];
+const list = toList(array);
 
 const reversed = list.reverseList();
 printList(reversed);
+printList(list)
