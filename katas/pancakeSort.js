@@ -1,34 +1,23 @@
 /*
 Pancake Sort
-Given an array of integers arr:
-
+Given an array of integers
 Write a function flip(arr, k) that reverses the order of the first k elements in the array arr.
-Write a function pancakeSort(arr) that sorts and returns the input array. You are allowed to use only the function flip you wrote in the first step in order to make changes in the array.
+Write a function pancakeSort(arr) that sorts and returns the input array. 
+You are allowed to use only the function flip you wrote in the first step in order to make changes in the array.
 */
 
-const empty = [];
-const one = [1];
-const twoSorted = [1,2];
-const twoUnsorted = [2,1];
-const threeSorted = [1,2,3];
-const threeUnsorted = [2,3,1];
-const fiveSorted = [1,2,3,4,5];
-const fiveUnsorted = [4,5,1,3,2];
-const twoListInput = [1,2,3,4,4,3,2,1];
-
-function pancakeSort(array) {
-    if(!array) return [];
-
-    let unsorted = array.slice(0, array.length);
+function pancakeSort(input) {
+    if(!input) return [];
 
     function recurse(array, result) {
+
         if(!array.length) return result;
 
         const indexLargestElement = getindexLargestElement(array);
 
         let flipLargestToTop = flip(array, indexLargestElement + 1);
 
-        let flipTopToBottom = flip(flipLargestToTop, unsorted.length);
+        let flipTopToBottom = flip(flipLargestToTop, array.length);
 
         const largest = flipTopToBottom.pop();
         result.unshift(largest);
@@ -36,7 +25,7 @@ function pancakeSort(array) {
         return recurse(flipTopToBottom, result)
     }
 
-    return recurse(unsorted, []);
+    return recurse(input, []);
 };
 
 function flip(arr, indexLargestElement) {
@@ -63,9 +52,19 @@ function getindexLargestElement(array){
     return index;
 }
 
-// Tests
+// TESTS
 
+const empty = [];
+const one = [1];
+const twoSorted = [1,2];
+const twoUnsorted = [2,1];
+const threeSorted = [1,2,3];
+const threeUnsorted = [2,3,1];
+const fiveSorted = [1,2,3,4,5];
+const fiveUnsorted = [4,5,1,3,2];
+const twoListInput = [1,2,3,4,4,3,2,1];
 
+// PANCAKE SORT
 
 let actual = pancakeSort(one);
 let expected = one
