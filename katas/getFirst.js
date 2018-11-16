@@ -1,7 +1,7 @@
 function first_by_key(key, order, records) {
-    const matchingRecords = getMatchingRecords(key, records); 
-    const correctIndex = getCorrectIndex(key, order, matchingRecords);
-    return records[correctIndex];
+    const completeRecords = addMissingRecords(key, records); 
+    const matchingIndex = getMatchingIndex(key, order, completeRecords);
+    return records[matchingIndex];
 }
 
 function min_by_key(key, records) { 
@@ -10,10 +10,24 @@ function min_by_key(key, records) {
 
 // Helper functions
 
-function getMatchingRecords(key, records){ 
-    const missingValue = {};
-    missingValue[key] = 0;  
-    return records.map(record => key in record ? record : missingValue);
+function addMissingRecords(key, records){ 
+    const implicitRecord = {[key]: 0};
+    return records.map(record => key in record ? record : implicitRecord);
+}
+
+function getMatchingIndex(key, order, input){
+
+    let matchingIndex = 0;
+    const callback = getComparisonFunction(order);
+
+    input.reduce((current, next, index) => {
+        const winner = compare(current, next, callback, key);
+        const isNewAnswer = winner[key] !== current[key];
+        if(isNewAnswer) matchingIndex = index;
+        return winner;
+    });
+
+    return matchingIndex;
 }
 
 function getComparisonFunction(order){
@@ -21,27 +35,10 @@ function getComparisonFunction(order){
     return isAscending ? Math.min : Math.max;
 }
 
-function compareObjectKeys(first, second, comparisonFunction, key) {
-    const result = comparisonFunction(first[key], second[key]);
+function compare(first, second, callback, key) {
+    const result = callback(first[key], second[key]);
     const isFirst = result === first[key];
     return isFirst ? first : second;
-}
-
-function getCorrectIndex(key, order, input){
-
-    const comparisonFunction = getComparisonFunction(order);
-    let correctIndex = 0;
-
-    input.reduce((first, second, index) => {
-        const comparedObject = compareObjectKeys(first, second, comparisonFunction, key);
-        const isNewAnswer = comparedObject[key] !== first[key];
-        if(isNewAnswer) {
-            correctIndex = index;
-        }
-        return comparedObject;
-    });
-
-    return correctIndex;
 }
   
 // Tests
