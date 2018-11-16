@@ -1,39 +1,7 @@
-function getIndex(key, order, input){
-
-    let answer = 0;
-
-    function compareObjectKeys(objectOne, objectTwo, comparisonFunction, index, key) {
-        
-        const keyOne = objectOne[key];
-        const keyTwo = objectTwo[key];
-    
-        const result = comparisonFunction(keyOne, keyTwo);
-        const satisfiesCondition = result === keyOne;
-        
-        if(satisfiesCondition) {
-            return objectOne;
-        } else {
-            answer = index;
-            return objectTwo;
-        }
-    }
-    
-
-    input.reduce((acc, element, index) => {
-        const isAscending = order === "asc";
-        const comparisonFunction = isAscending ? Math.min : Math.max;
-        return compareObjectKeys(acc, element, comparisonFunction, index, key);
-    });
-
-    return answer;
-}
- 
-
 function first_by_key(key, order, records) {
-    const result = getMatchingRecords(key, records); // O(records.length);
-    const correctIndex = getIndex(key, order, result); //O(result.length)
-    const final = records[correctIndex];
-    return final;
+    const matchingRecords = getMatchingRecords(key, records); 
+    const correctIndex = getCorrectIndex(key, order, matchingRecords);
+    return records[correctIndex];
 }
 
 function min_by_key(key, records) { 
@@ -46,6 +14,34 @@ function getMatchingRecords(key, records){
     const missingValue = {};
     missingValue[key] = 0;  
     return records.map(record => key in record ? record : missingValue);
+}
+
+function getComparisonFunction(order){
+    const isAscending = order === "asc";
+    return isAscending ? Math.min : Math.max;
+}
+
+function compareObjectKeys(first, second, comparisonFunction, key) {
+    const result = comparisonFunction(first[key], second[key]);
+    const isFirst = result === first[key];
+    return isFirst ? first : second;
+}
+
+function getCorrectIndex(key, order, input){
+
+    const comparisonFunction = getComparisonFunction(order);
+    let correctIndex = 0;
+
+    input.reduce((first, second, index) => {
+        const comparedObject = compareObjectKeys(first, second, comparisonFunction, key);
+        const isNewAnswer = comparedObject[key] !== first[key];
+        if(isNewAnswer) {
+            correctIndex = index;
+        }
+        return comparedObject;
+    });
+
+    return correctIndex;
 }
   
 // Tests
@@ -87,6 +83,6 @@ test_min_by_key()
 function assert_equal(actual, expected) {
     if (JSON.stringify(actual) != JSON.stringify(expected)) {
       console.log(`Assertion failed: ${JSON.stringify(actual)} does not match expected ${JSON.stringify(expected)}`)
-      console.trace()
+      //console.trace()
     }
 }  
