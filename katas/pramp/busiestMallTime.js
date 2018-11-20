@@ -1,26 +1,28 @@
 function findBusiestPeriod(data) {
     
-    let maxCount = 0;
-    let existingCount = 0;
-    let matchingIndex = 0;
-
     const periods = data;
+
+    let existingCount = 0;
+    let maxCount = 0;
+    let matchingIndex = 0;
+    let result = [maxCount, matchingIndex]
+
     
     periods.forEach((currentPeriod, index) => {
-
-        let nextPeriod = periods[index+1] || [];
-        let nextPeriodTimestamp = nextPeriod[0];
 
         let currentPeriodTimeStamp = currentPeriod[0];
         let currentPeriodCount = currentPeriod[1];
         let currentPeriodAction = currentPeriod[2];
 
+        let nextPeriod = periods[index+1] || [];
+        let nextPeriodTimestamp = nextPeriod[0];
+
         existingCount = updateCount(existingCount, currentPeriodCount, currentPeriodAction);
         
-        if(isNewTimePeriod(currentPeriodTimeStamp, nextPeriodTimestamp)) {
+        if(isEndOfSection(currentPeriodTimeStamp, nextPeriodTimestamp)) {
             if(isNewMax(existingCount, maxCount)){
-                matchingIndex = index;
                 maxCount = existingCount;
+                matchingIndex = index;
             } 
         } 
     });
@@ -34,32 +36,14 @@ function isNewMax(existingCount, maxCount) {
     return existingCount > maxCount;
 }
 
-function isNewTimePeriod(currentTimeStamp, nextTimeStamp) {
+function isEndOfSection(currentTimeStamp, nextTimeStamp) {
     return currentTimeStamp !== nextTimeStamp;
 }
 
 function updateCount(previous, current, action){
-    
-    let result = previous;
-
-    if(action === 0) {
-        result -= current;
-
-    } else {
-        result += current;
-    }
-    return result;
-}
-
-function updateCount1(previous, current, action){
-    
     const isEnter = action === 1;
-    const add = previous += current;
-    const subtract = previous -= current;
-    return isEnter ? add : subtract;
+    return isEnter ? previous + current : previous - current;
 }
-
-//exit = 0, enter = 1
 
 let input = [
     // 0 
