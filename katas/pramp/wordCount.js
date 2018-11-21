@@ -9,16 +9,16 @@ function wordCountEngine(document) {
     const foo = unsorted;
     
     foo.sort((first, second) => {
-      const firstCount = first[1];
-      const secondCount = second[1];
-      
-      if(firstCount > secondCount) {
-        return -1;
-      } else if (firstCount < secondCount) {
-        return 1;
-      } else { //same
-        return -1;
-      }
+        const firstCount = first[1];
+        const secondCount = second[1];
+        
+        if(firstCount > secondCount) {
+            return -1;
+        } else if (firstCount < secondCount) {
+            return 1;
+        } else { //same
+            return -1;
+        }
     });
     
     return foo;
