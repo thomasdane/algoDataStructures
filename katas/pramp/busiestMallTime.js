@@ -1,19 +1,15 @@
 function findBusiestPeriod(data) {
     
     const periods = data;
-
     let existingCount = 0;
     let maxCount = 0;
     let matchingIndex = 0;
-    let result = [maxCount, matchingIndex]
-
     
     periods.forEach((currentPeriod, index) => {
 
         let currentPeriodTimeStamp = currentPeriod[0];
         let currentPeriodCount = currentPeriod[1];
         let currentPeriodAction = currentPeriod[2];
-
         let nextPeriod = periods[index+1] || [];
         let nextPeriodTimestamp = nextPeriod[0];
 
