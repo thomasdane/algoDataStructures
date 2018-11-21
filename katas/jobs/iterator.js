@@ -1,15 +1,14 @@
 class Iterator {
-    constructor(input){
+    constructor(){
         this.queue = [];
-        this.input = input;
     }
     
-    hasNext() {
-        return this.input.length > 0;
+    hasNext(input) {
+        return input.length > 0;
     }
     
-    next(){
-        let firstElement = this.input.shift();
+    next(input){
+        let firstElement = input.shift();
 
         if(Array.isArray(firstElement)){
             firstElement.map(x => this.queue.push(x));
@@ -19,24 +18,24 @@ class Iterator {
 
         return firstElement;
     }
-}
 
-const iterate = input => {
+    iterate(input) {
 
-    const iterator = new Iterator(input);
-    const result = [];
-
-    while(iterator.hasNext()){
-        const next = iterator.next();
-        result.push(next);
-
-        while(iterator.queue.length > 0) {
-            let firstNode = iterator.queue.shift();
-            result.push(firstNode);
+        const iterator = new Iterator(input);
+        const result = [];
+    
+        while(iterator.hasNext(input)){
+            const next = iterator.next(input);
+            result.push(next);
+    
+            while(iterator.queue.length > 0) {
+                let firstNode = iterator.queue.shift();
+                result.push(firstNode);
+            }
         }
+    
+        return result.join();
     }
-
-    return result.join();
 }
 
 //Arrange
@@ -48,12 +47,13 @@ const doublyNestedInput = [1,[2,[3,4],5],6]
 const sampleInput = [9,[1,3],4,5];
 
 //Act
-const empty = iterate(emptyInput);
-const singleElement = iterate(singleElementInput);
-const twoElements = iterate(twoElementsInput);
-const nested = iterate(nestedInput);
-const doublyNested = iterate(doublyNestedInput);
-const sample = iterate(sampleInput);
+const iterator = new Iterator();
+const empty = iterator.iterate(emptyInput);
+const singleElement = iterator.iterate(singleElementInput);
+const twoElements = iterator.iterate(twoElementsInput);
+const nested = iterator.iterate(nestedInput);
+const doublyNested = iterator.iterate(doublyNestedInput);
+const sample = iterator.iterate(sampleInput);
 
 //Assert
 console.log(empty.length === 0);
