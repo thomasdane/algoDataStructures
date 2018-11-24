@@ -16,8 +16,6 @@ public int next();
 
 */
 
-
-
 class Node{
   constructor(value){
     this.value = value;
@@ -89,7 +87,6 @@ listThree.push(twoA);
 listThree.push(four);
 
 
-
 function isIntersection(listA, listB){
   
   const references = new Set();
@@ -119,21 +116,17 @@ function isIntersection(listA, listB){
   
   
 }
-/*
 const success = isIntersection(listA, listB);
-console.log(success);
+console.log(success === true);
 
 const failure = isIntersection(listA, listC);
-console.log(failure);*/
+console.log(failure === false);
 
 const successInt = isIntersection(listOne, listTwo);
-console.log(successInt);
+console.log(successInt === true);
 
 const failureInt = isIntersection(listOne, listThree);
-console.log(failureInt);
-
-// 1,2
-// 2
+console.log(failureInt === false);
 
 
 
