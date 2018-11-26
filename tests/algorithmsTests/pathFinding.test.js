@@ -1,4 +1,4 @@
-import {getNeighbours, findShortestPathLength, Point, transformGrid} from "../../algorithms/pathFinding.js"
+import {getNeighbours, findShortestPathLength, Point, transformGrid} from "../../algorithms/graphs/pathFinding.js"
 
 describe("findShortestPathLength", () => {
 

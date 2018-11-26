@@ -1,4 +1,4 @@
-import mergeSort from '../../algorithms/mergeSort.js';
+import mergeSort from '../../algorithms/sorting/mergeSort.js';
 
 let empty = []; 
 let oneItem = [1]; 

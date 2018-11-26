@@ -1,13 +1,12 @@
 function quickSort (array) {
 
-    if (array.length <= 1)
-        return array
+    if (array.length <= 1) return array
     
-    let pivot = array.splice(0, 1);
-    let left = []
-    let right = []
+    const pivot = array.splice(0, 1);
+    const left = []
+    const right = []
 
-    array.map(x => x < pivot ? left.push(x) : right.push(x));
+    array.forEach(x => x < pivot ? left.push(x) : right.push(x));
 
     return quickSort(left).concat(pivot).concat(quickSort(right));
 }

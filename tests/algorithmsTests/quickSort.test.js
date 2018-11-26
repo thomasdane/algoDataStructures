@@ -1,4 +1,4 @@
-import quickSort from '../../algorithms/quickSort.js';
+import quickSort from '../../algorithms/sorting/quickSort.js';
 
 let empty = []; 
 let oneItem = [1]; 
